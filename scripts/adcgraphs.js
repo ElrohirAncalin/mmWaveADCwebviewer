@@ -9,8 +9,8 @@ var DBF_cap_20dB = [8.901, 16.622, 24.859,34.063,44.906,56.676,65.984]
 
 function updateCapacityValues(){
 	var fileurl="capacityResults/"+"Nt"+$("#Nant").val()+"Nr"+$("#Nrf").val()+"Nc"+$("#Nc").val()+"Np"+$("#Np").val()+".txt";
-	$.ajax({ 
-		url: fileurl, 
+	$.ajax({
+		url: fileurl,
 		data: null,
 		success: function( data ) {
 			var matrix=data.split("\n").map(function(a){ return a.split(" ").map(parseFloat)});
@@ -70,7 +70,7 @@ function updatePlot(){
 	var maxY=0;
 	var d1=[];
 	for (var b=0;b<8;b++){
-		d1.push([ABF_cap_0dB[b]/(ABF_P_const+ABF_P_bits*Math.pow(2.0,b+1)),ABF_cap_0dB[b]])		
+		d1.push([ABF_cap_0dB[b]/(ABF_P_const+ABF_P_bits*Math.pow(2.0,b+1)),ABF_cap_0dB[b]])
 	maxX=Math.max(maxX,d1[b][0]);
 	}
 	maxY=Math.max(maxY,d1[7][1]);
@@ -88,7 +88,7 @@ function updatePlot(){
 	maxY=Math.max(maxY,d3[7][1]);
 	var d4=[];
 	for (var b=0;b<8;b++){
-		d4.push([HBF_cap_20dB[b]/(HBF_P_const+HBF_P_bits*Math.pow(2.0,b+1)),HBF_cap_20dB[b]])		
+		d4.push([HBF_cap_20dB[b]/(HBF_P_const+HBF_P_bits*Math.pow(2.0,b+1)),HBF_cap_20dB[b]])
 		maxX=Math.max(maxX,d4[b][0]);
 	}
 	maxY=Math.max(maxY,d4[7][1]);
@@ -106,15 +106,15 @@ function updatePlot(){
 	maxY=Math.max(maxY,d6[7][1]);
 
 	plots=[
-		{color: "#008141",  label:"\u25CF Analog Combining SNR=-20dB", data:d1},
-		{color: "#008141", points: {symbol:"cross"}, label:"<span style=\"font-family: Courier, monospace;font-size:20;\">X</span> Analong Combining SNR=0dB", data:d2},
-		{color: "#a10000", points: {symbol:"square"}, label:"\u25A0 Hybrid Combining SNR=-20dB", data:d3},
-		{color: "#a10000", points: {symbol:"diamond"}, label:"\u25C6 Hybrid Combining SNR=0dB", data:d4},
-		{color: "#005682", points: {symbol:drawTriangle}, label:"\u25B2 Digital Combining SNR=-20dB", data:d5},
-		{color: "#005682", points: {symbol:"triangle"}, label:"\u25BC Digital Combining SNR=0dB", data:d6},
+		{color: "#008141",  label:"\u25CF Analog Combining SNR=-20dB (&sim;100m NLOS)", data:d1},
+		{color: "#008141", points: {symbol:"cross"}, label:"<span style=\"font-family: Courier, monospace;font-size:20;\">X</span> Analong Combining SNR=0dB (&sim;100m LOS)", data:d2},
+		{color: "#a10000", points: {symbol:"square"}, label:"\u25A0 Hybrid Combining SNR=-20dB (&sim;100m NLOS)", data:d3},
+		{color: "#a10000", points: {symbol:"diamond"}, label:"\u25C6 Hybrid Combining SNR=0dB (&sim;100m LOS)", data:d4},
+		{color: "#005682", points: {symbol:drawTriangle}, label:"\u25B2 Digital Combining SNR=-20dB (&sim;100m NLOS)", data:d5},
+		{color: "#005682", points: {symbol:"triangle"}, label:"\u25BC Digital Combining SNR=0dB (&sim;100m LOS)", data:d6},
 	];
 	if ($("#Plim").is(':checked')){
-		maxX=1.02*maxX;		
+		maxX=1.02*maxX;
 		maxY=1.02*maxY;
 		var d7=[]
 		var slope=parseFloat($("#Pconst").val());
@@ -129,7 +129,7 @@ function updatePlot(){
 	}
 	$.plot("#chart1",plots,{
 		lines: {show:true},
-		points: {show:true, radius:4},		
+		points: {show:true, radius:4},
 		legend:{container:"#chart1legend"},
 		axisLabels: {
 			    show: true
@@ -208,5 +208,3 @@ $(document).ready(function(){
 	updatePowerValues();
 	updateCapacityValues();
 });
-
-

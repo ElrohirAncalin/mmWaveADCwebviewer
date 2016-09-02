@@ -2,7 +2,7 @@
 	<head>
 		<meta charset="utf-8">
 		<title>mmWave Receiver Beamforming Comparison Tool</title>
-		
+
 <!--jquery javascript tools-->
   		<script src="./scripts/jquery-2.2.4.min.js"></script>
 
@@ -10,12 +10,12 @@
   		<link rel="stylesheet" href="./jquery-ui-1.11.4.custom/jquery-ui.css">
   		<script src="./jquery-ui-1.11.4.custom/jquery-ui.min.js"></script>
 
-<!--jquery plot library-->		
+<!--jquery plot library-->
 <script language="javascript" type="text/javascript" src="./flot/jquery.flot.js"></script>
 <script language="javascript" type="text/javascript" src="./flot/jquery.flot.symbol.js"></script>
 <script language="javascript" type="text/javascript" src="./flot/jquery.flot.axislabels.js"></script>
 
-<!--latex renderer-->		
+<!--latex renderer-->
 <script type="text/javascript" async
   src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
 </script>
@@ -26,8 +26,8 @@ MathJax.Hub.Config({
 </script>
 
 <!-- LaTeX fonts -->
-	<link rel="stylesheet" href="./fonts/Computer Modern/Serif/cmun-serif.css"/>
-	<link rel="stylesheet" href="./fonts/Computer Modern/Sans/cmun-sans.css"/>
+	<link rel="stylesheet" href="./fonts/ComputerModern/Serif/cmun-serif.css"/>
+	<link rel="stylesheet" href="./fonts/ComputerModern/Sans/cmun-sans.css"/>
 	<link href="http://fonts.googleapis.com/css?family=Open+Sans:regular,semibold,italic,italicsemibold|PT+Sans:400,700,400italic,700italic|PT+Serif:400,700,400italic,700italic" rel="stylesheet" />
 
 <!-- Custom decoration and script for this page -->
@@ -56,7 +56,7 @@ MathJax.Hub.Config({
 				<h1  class="content">mmWave Receiver Beamforming Comparison Tool v1.0</h1>
 				<p id="abstract" class="content" > In this work, we study the capacity and energy efficiency of Analog, Hybrid and Digital Combining (AC, HC and DC)  for millimeter wave (mmW) receivers. Our comparison extends previous work by taking into account the power consumption of all components of the receiver, not just Analog-Digital Converters (ADC), by considering the practical limitations of beamforming in each architecture, and by developing a performance chart representation that enables comparison of different architectures at a glance.</p>
 				<div class="container" > <button id="helpbt"  class="content">View Model<br/> Characteristics</button>
-<p id="reference" class="content"><b>Ref:</b> Waqas bin Abbas, Felipe Gomez-Cuba, Michele Zorzi; "Millimeter Wave Receiver Efficiency: A Comprehensive Comparison of Beamforming Schemes with Low Resolution ADCs" <a href="">httpd://arxhiv.org/blablabla</a> Submitted to IEEE Transactions on Wireless Communications.</p></div>
+<p id="reference" class="content"><b>Ref:</b> Waqas bin Abbas, Felipe Gomez-Cuba, Michele Zorzi; "Millimeter Wave Receiver Efficiency: A Comprehensive Comparison of Beamforming Schemes with Low Resolution ADCs" <a href="">http://arxiv.org/abs/1607.03725</a> Submitted to IEEE Transactions on Wireless Communications.</p></div>
 			</div>
 			<div id="helpdg">
 				<div id="helptb">
@@ -73,14 +73,14 @@ MathJax.Hub.Config({
 \begin{equation}
    \textbf{H} = \sqrt{\dfrac{N_{t}N_{r}}{\rho N_cN_p}}\sum_{k=1}^{N_c}\sum_{\ell=1}^{N_p}g_{k,\ell}\textbf{a}_{r}(\phi_{k}+\Delta\phi_{k,\ell}) \textbf{a}_{t}^H(\theta_k+\Delta\theta_{k,\ell})
 \end{equation}
- 
-where $\rho$ is the distance dependent path-loss, $N_c$ is the number of independent clusters, $N_p$ represents the number of paths per cluster, $g_{k,\ell}\sim \mathcal{CN}(0,1)$ is the small scale fading associated with the $\ell^{th}$ path of the $k^{th}$ cluster, $\phi_k$ and $\theta_k$ $\in [0,2\pi)$ represent the mean angle of arrival (AoA) and angle of departure (AoD) of the $k^{th}$ cluster at the receiver and at the transmitter, respectively. The AoA and AoD of each path within each cluster vary around the mean direction of that cluster, with a standard deviation $\theta_{RMS}$. We represent by $\Delta\phi_{k,\ell}$ and $\Delta\theta_{k,\ell}$ $\sim \mathcal{N}(0,\theta_{RMS}^2)$ the differential AoA and AoD of the $\ell^{th}$ path of the $k^{th}$ cluster. 
+
+where $\rho$ is the distance dependent path-loss, $N_c$ is the number of independent clusters, $N_p$ represents the number of paths per cluster, $g_{k,\ell}\sim \mathcal{CN}(0,1)$ is the small scale fading associated with the $\ell^{th}$ path of the $k^{th}$ cluster, $\phi_k$ and $\theta_k$ $\in [0,2\pi)$ represent the mean angle of arrival (AoA) and angle of departure (AoD) of the $k^{th}$ cluster at the receiver and at the transmitter, respectively. The AoA and AoD of each path within each cluster vary around the mean direction of that cluster, with a standard deviation $\theta_{RMS}$. We represent by $\Delta\phi_{k,\ell}$ and $\Delta\theta_{k,\ell}$ $\sim \mathcal{N}(0,\theta_{RMS}^2)$ the differential AoA and AoD of the $\ell^{th}$ path of the $k^{th}$ cluster.
 
 
 
 Here, we model the antenna arrays at both the transmitter and the receiver as uniform linear arrays (ULA) with adjacent antenna spacing of half the wavelength of the transmitted signal ($\lambda/2$). Under this model, a spatial signature vector $\textbf{a}_{t}$ for the transmit array can be expressed as a function of the AoD as follows
 \begin{equation}
-   \textbf{a}_{t} = \dfrac{1}{\sqrt{N_{t}}}[1, e^{j{\pi}\sin (\theta)}, ... , e^{j(N_{t} - 1){\pi}\sin (\theta)}]^T 
+   \textbf{a}_{t} = \dfrac{1}{\sqrt{N_{t}}}[1, e^{j{\pi}\sin (\theta)}, ... , e^{j(N_{t} - 1){\pi}\sin (\theta)}]^T
 \end{equation}
 where $T$ represents the transpose.
 Likewise, an analogous expression characterizes the spatial signature vector for the receiver, $\textbf{a}_{r}$.
@@ -118,7 +118,7 @@ The parameters suggested to model mmW 28 GHz channels in the literature [28] are
 							<option value="LPADC">LPADC</option>
 							<option value="custom">Customized</option>
 						</select>
-						<em>ADC parameters</em>	
+						<em>ADC parameters</em>
 						<p class="just">c:<input id="cadc" size=5 value="12500" disabled=true></input>fJ/step/Hz
 						B:<input id="bandwidth" size=1 value="1"></input>GHz</p><br/>
 						<em>All architectures, &times;Nant</em>
@@ -141,7 +141,7 @@ The parameters suggested to model mmW 28 GHz channels in the literature [28] are
 					<h3>mmWave link values</h3>
 					<div id="linkmenu" class="container">
 						<p class="container">
-<div class=content>Channel - </div> 
+<div class=content>Channel - </div>
 							<div class=content>
 								<label for="Nc">Nc: 	</label><br/>
 								<select id="Nc" name="Nc">
@@ -159,7 +159,7 @@ The parameters suggested to model mmW 28 GHz channels in the literature [28] are
 							</div>
 						</p>
 						<p class="container">
-<div class=content>Receiver - </div> 
+<div class=content>Receiver - </div>
 							<div class=content>
 								<label for="Nant"> Nant:</label><br/>
 								<select id="Nant" name="Nant">
