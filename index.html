@@ -1,0 +1,198 @@
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>mmWave Receiver Beamforming Comparison Tool</title>
+		
+<!--jquery javascript tools-->
+  		<script src="./scripts/jquery-2.2.4.min.js"></script>
+
+<!--jquery GUI decorator and library-->
+  		<link rel="stylesheet" href="./jquery-ui-1.11.4.custom/jquery-ui.css">
+  		<script src="./jquery-ui-1.11.4.custom/jquery-ui.min.js"></script>
+
+<!--jquery plot library-->		
+<script language="javascript" type="text/javascript" src="./flot/jquery.flot.js"></script>
+<script language="javascript" type="text/javascript" src="./flot/jquery.flot.symbol.js"></script>
+<script language="javascript" type="text/javascript" src="./flot/jquery.flot.axislabels.js"></script>
+
+<!--latex renderer-->		
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+
+<!-- LaTeX fonts -->
+	<link rel="stylesheet" href="./fonts/Computer Modern/Serif/cmun-serif.css"/>
+	<link rel="stylesheet" href="./fonts/Computer Modern/Sans/cmun-sans.css"/>
+	<link href="http://fonts.googleapis.com/css?family=Open+Sans:regular,semibold,italic,italicsemibold|PT+Sans:400,700,400italic,700italic|PT+Serif:400,700,400italic,700italic" rel="stylesheet" />
+
+<!-- Custom decoration and script for this page -->
+  		<link rel="stylesheet" href="./CSS/adcgraphs.css">
+  		<script src="./scripts/adcgraphs.js"></script>
+	</head>
+
+	<body>
+<!-- The layout is a 1 head, 2 column tableless web page with left menu
+|                              |
+|             TITLE            |
+|                              |
+|------------------------------|
+| |         | |                |
+| | form 1  | |                |
+| |         | |                |
+|  ---------  |                |
+| |         | |      PLOT      |
+| | form 2  | |                |
+| |         | |                |
+|  ---------  |                |
+|------------------------------|
+ -->
+		<div id="page" class="container">
+			<div id="header" class="container">
+				<h1  class="content">mmWave Receiver Beamforming Comparison Tool v1.0</h1>
+				<p id="abstract" class="content" > In this work, we study the capacity and energy efficiency of Analog, Hybrid and Digital Combining (AC, HC and DC)  for millimeter wave (mmW) receivers. Our comparison extends previous work by taking into account the power consumption of all components of the receiver, not just Analog-Digital Converters (ADC), by considering the practical limitations of beamforming in each architecture, and by developing a performance chart representation that enables comparison of different architectures at a glance.</p>
+				<div class="container" > <button id="helpbt"  class="content">View Model<br/> Characteristics</button>
+<p id="reference" class="content"><b>Ref:</b> Waqas bin Abbas, Felipe Gomez-Cuba, Michele Zorzi; "Millimeter Wave Receiver Efficiency: A Comprehensive Comparison of Beamforming Schemes with Low Resolution ADCs" <a href="">httpd://arxhiv.org/blablabla</a> Submitted to IEEE Transactions on Wireless Communications.</p></div>
+			</div>
+			<div id="helpdg">
+				<div id="helptb">
+				  <ul>
+				    <li><a href="#tabs-1">mmWave Channel Model</a></li>
+				    <li><a href="#tabs-2">Analog Receiver</a></li>
+				    <li><a href="#tabs-3">Digital Receiver</a></li>
+				    <li><a href="#tabs-4">Hybrid Receiver</a></li>
+				  </ul>
+				  <div id="tabs-1">
+				    <h2>mmWave Channel Model</h2>
+				    <p>The mmW channel matrix is randomly distributed following a random geometry with a small number of propagation paths (order of tens) grouped in very few clusters of similar paths (average $1.9$)[4,27]
+
+\begin{equation}
+   \textbf{H} = \sqrt{\dfrac{N_{t}N_{r}}{\rho N_cN_p}}\sum_{k=1}^{N_c}\sum_{\ell=1}^{N_p}g_{k,\ell}\textbf{a}_{r}(\phi_{k}+\Delta\phi_{k,\ell}) \textbf{a}_{t}^H(\theta_k+\Delta\theta_{k,\ell})
+\end{equation}
+ 
+where $\rho$ is the distance dependent path-loss, $N_c$ is the number of independent clusters, $N_p$ represents the number of paths per cluster, $g_{k,\ell}\sim \mathcal{CN}(0,1)$ is the small scale fading associated with the $\ell^{th}$ path of the $k^{th}$ cluster, $\phi_k$ and $\theta_k$ $\in [0,2\pi)$ represent the mean angle of arrival (AoA) and angle of departure (AoD) of the $k^{th}$ cluster at the receiver and at the transmitter, respectively. The AoA and AoD of each path within each cluster vary around the mean direction of that cluster, with a standard deviation $\theta_{RMS}$. We represent by $\Delta\phi_{k,\ell}$ and $\Delta\theta_{k,\ell}$ $\sim \mathcal{N}(0,\theta_{RMS}^2)$ the differential AoA and AoD of the $\ell^{th}$ path of the $k^{th}$ cluster. 
+
+
+
+Here, we model the antenna arrays at both the transmitter and the receiver as uniform linear arrays (ULA) with adjacent antenna spacing of half the wavelength of the transmitted signal ($\lambda/2$). Under this model, a spatial signature vector $\textbf{a}_{t}$ for the transmit array can be expressed as a function of the AoD as follows
+\begin{equation}
+   \textbf{a}_{t} = \dfrac{1}{\sqrt{N_{t}}}[1, e^{j{\pi}\sin (\theta)}, ... , e^{j(N_{t} - 1){\pi}\sin (\theta)}]^T 
+\end{equation}
+where $T$ represents the transpose.
+Likewise, an analogous expression characterizes the spatial signature vector for the receiver, $\textbf{a}_{r}$.
+Finally, for a 28 GHz channel, the path-loss is computed with [28]
+$$\rho_{LOS} (dB)=61.5+20\log_{10} (d)+\xi,\; \xi\sim\mathcal{N}(0,5.8),$$
+$$\rho_{NLOS} (dB)=72+29.2\log_{10} (d)+\xi,\; \xi\sim\mathcal{N}(0,8.7),$$
+where $d$ represents the distance between the transmitter and the receiver on a straight line while the variation of distances traversed by different paths is captured in $g_{k,\ell}$.
+
+The parameters suggested to model mmW 28 GHz channels in the literature [28] are $N_p=20$, $N_c\sim\max\{Poisson(1.8),1\}$ and $\theta_{RMS}\sim 10^o$. In our simulations, however, we set specific non-random values for $N_c$ to study the effect of the rank of the channel matrix $\mathbf{H}$ in the performance of receiver architectures. We consider a rank-1 channel with $N_c=N_p=1$; a low-rank channel with $N_c=1$ and $N_p=10$, where $\mathbf{H}$ typically has $4-5$ dominant eigenvalues; and a not-so-low rank channel $N_c=2$, $N_p=10$ where $\mathbf{H}$ typically has $8-10$ dominant eigenvalues.</p>
+				  </div>
+				  <div id="tabs-2">
+				    <h2>Analog Receiver</h2>
+	   				<p><img src="img/ABF.png" style="width:80%;display:block;margin:auto" alt="Figure 1"></img></p>
+				    <p>Analog Combining is motivated by the fact that typically ADCs are the most power-hungry receiver component. Therefore, in this architecture all multiple-antenna processing is performed in the analog domain to minimize power consumption. The architecture in Figure 1 features one phase-shifter per receive antenna and an analog signal adder; together, these devices implement analog beamforming and deliver a scalar combined signal to a one-dimensional RF and ADC chain. </p>
+				  </div>
+				  <div id="tabs-3">
+				    <h2>Digital Receiver</h2>
+	   				<p><img src="img/DBF.png" style="width:80%;display:block;margin:auto" alt="Figure 2"></img></p>
+				    <p>Digital Combining, which is motivated by the fact that digital MIMO processing has in general fewer constraints and can achieve higher gains. Therefore, in this architecture all multiple-antenna processing is performed in the digital domain to maximize the rate. The architecture in Figure 2 features no analog processing; each antenna directly delivers its received signal to a dedicated RF and ADC chain.</p>
+				  </div>
+				  <div id="tabs-4">
+				    <h2>Hybrid Receiver</h2>
+	   				<p><img src="img/HBF1.png" style="width:95%;display:block;margin:auto" alt="Figure 3"></img></p>
+				    <p> Hybrid Combining, which is motivated by the high capacity and the low power consumption of Digital and Analog combining architectures, respectively, and tries to strike a balance between the two. Therefore, this architecture has both analog and digital multiple-antenna processing. The architecture in Figure 3 features an analog processing stage with multiple banks of phase-shifters, each with an independent analog adder, RF and ADC chain.</p>
+				  </div>
+				</div>
+			</div>
+			<div id="main" class="container">
+				<div id="menu" class="content">
+					<h3> Device power consumption </h3>
+					<div id="powermenu" class="container">
+						Preset: <select id="adcmodsel" >
+							<option value="PHPADC" selected>PHPADC</option>
+							<option value="HPADC">HPADC</option>
+							<option value="LPADC">LPADC</option>
+							<option value="custom">Customized</option>
+						</select>
+						<em>ADC parameters</em>	
+						<p class="just">c:<input id="cadc" size=5 value="12500" disabled=true></input>fJ/step/Hz
+						B:<input id="bandwidth" size=1 value="1"></input>GHz</p><br/>
+						<em>All architectures, &times;Nant</em>
+						<p>Plna:<input id="Plna" size=2 value="39" disabled=true></input>mW</p><br/>
+						<em>All architectures, &times; No. of ADCs</em>
+						<p class="just">
+						Plo:<input id="Plo" size=4   value="5" disabled=true></input>mW
+						Pm:<input id="Pm" size=4   value="16.5" disabled=true></input>mW</p>
+						<p class="just">
+						Plpf:<input id="Plpf" size=3   value="14" disabled=true></input>mW
+						Pbb:<input id="Pbba" size=3   value="5" disabled=true></input>mW</p>
+						<br/>
+						<em>In AC/HC, &times; No. of ADCs</em>
+						<p>Pc:<input id="Pc" size=4  value="19.5" disabled=true></input> mW</p><br/>
+						<em>In AC/HC, &times;Nant &times; No. of ADCs</em>
+						<p>Pps:<input id="Pps" size=4  value="19.5" disabled=true></input> mW</p><br/>
+						<em>In HC, &times;Nant &times; No. of ADCs</em>
+						<p>Psp:<input id="Psp" size=4   value="19.5" disabled=true></input> mW</p><br/>
+					</div>
+					<h3>mmWave link values</h3>
+					<div id="linkmenu" class="container">
+						<p class="container">
+<div class=content>Channel - </div> 
+							<div class=content>
+								<label for="Nc">Nc: 	</label><br/>
+								<select id="Nc" name="Nc">
+									<option id="NcO1" value="1" selected>1</option>
+									<option id="NcO2" value="2" >2</option>
+								</select>
+							</div>
+							<div class=content>
+								<label for="Np">Np: 	</label><br/>
+								<select id="Np" name="Np">
+									<option id="NpO1" value="1" selected>1</option>
+									<option value="10">10</option>
+									<option value="20">20</option>
+								</select>
+							</div>
+						</p>
+						<p class="container">
+<div class=content>Receiver - </div> 
+							<div class=content>
+								<label for="Nant"> Nant:</label><br/>
+								<select id="Nant" name="Nant">
+									<option value="16" selected>16</option>
+									<option value="64">64</option>
+								</select>
+							</div>
+							<div class=content>
+								<label for="Nrf">Nrf: 	</label><br/>
+								<select id="Nrf" name="Nrf">
+									<option value="4" selected>4</option>
+									<option id="NrfO8" value="8">8</option>
+								</select>
+							</div>
+						</p>
+					</div>
+					<h3>Design Constraint Assistant</h3>
+					<div id="constmenu">
+						<em>Receiver power limitation</em>
+						<p><input type="checkbox" id="Plim"></input><label for="Plim">Set</label>
+						<input id="Pconst" value=1 size=4></input>W</p>
+					</div>
+				</div>
+				<div id="result" class="content">
+					<h3>Receiver Beamforming Performance</h3>
+					<div id="chart1">
+						<!--this div is a placeholder replaced in run-time by the plot-->
+					</div>
+					<div class=container>
+						<div id="chart1legend" class="content"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
